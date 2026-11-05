@@ -1,0 +1,88 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* A restrained, tactile palette: evergreen for trust, brass for decisions, and warm paper for space. */
+  --primary: 20 78 75;
+  --primary-dark: 12 54 52;
+  --primary-soft: 226 237 232;
+  --primary-foreground: 255 255 255;
+  --accent: 207 151 57;
+  --accent-soft: 248 237 217;
+  --accent-foreground: 38 37 29;
+  --background: 248 246 240;
+  --surface: 255 255 255;
+  --ink: 30 48 46;
+  --muted: 87 101 96;
+  --line: 225 224 215;
+  --success: 42 115 81;
+  --success-soft: 228 241 232;
+  --warning: 177 111 20;
+  --warning-soft: 249 239 213;
+  --error: 178 65 51;
+  --error-soft: 248 231 227;
+  --radius: 10px;
+}
+
+@layer base {
+  * { @apply border-line; }
+  html { scroll-behavior: smooth; }
+  body {
+    @apply bg-background text-ink font-sans antialiased;
+    font-feature-settings: "ss01";
+  }
+  h1, h2, h3 { @apply font-display; letter-spacing: -0.01em; }
+  html[lang="ne"] body, html[lang="ne"] h1, html[lang="ne"] h2, html[lang="ne"] h3 {
+    font-family: "Noto Sans Devanagari", "Plus Jakarta Sans", sans-serif;
+    letter-spacing: 0;
+  }
+  :focus-visible {
+    outline: 3px solid rgb(var(--accent));
+    outline-offset: 2px;
+    border-radius: 8px;
+  }
+  button, a, input, select, [role="button"] {
+    transition: background-color 150ms ease, color 150ms ease, border-color 150ms ease,
+      box-shadow 150ms ease, opacity 150ms ease;
+  }
+}
+
+@layer components {
+  .hero-surface {
+    background: rgb(var(--primary-dark));
+    background-image: radial-gradient(circle at 82% 18%, rgba(207, 151, 57, .16), transparent 23rem);
+  }
+  .eyebrow {
+    @apply inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[.14em];
+  }
+  .eyebrow::before {
+    content: "";
+    @apply h-px w-6 bg-current opacity-70;
+  }
+  /* Woven "dhaka"-inspired lattice used for the hero — a nod to Nepali textile, not a gradient wash */
+  .pattern-dhaka {
+    background-color: rgb(var(--primary));
+    background-image:
+      linear-gradient(135deg, rgba(242,163,58,.16) 25%, transparent 25%),
+      linear-gradient(225deg, rgba(242,163,58,.16) 25%, transparent 25%),
+      linear-gradient(45deg, rgba(255,255,255,.06) 25%, transparent 25%),
+      linear-gradient(315deg, rgba(255,255,255,.06) 25%, transparent 25%);
+    background-size: 44px 44px;
+    background-position: 22px 0, 22px 0, 0 0, 0 0;
+  }
+  .skeleton { @apply relative overflow-hidden bg-primary-soft/70 rounded-lg; }
+  .skeleton::after {
+    content: "";
+    @apply absolute inset-0;
+    transform: translateX(-100%);
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,.7), transparent);
+    animation: shimmer 1.4s infinite;
+  }
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { scrollbar-width: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+}
