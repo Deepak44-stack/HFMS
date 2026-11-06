@@ -12,7 +12,7 @@ const GENDER_KEY = { Boys: "hero.boys", Girls: "hero.girls", "Co-ed": "hero.coed
 
 const LEVEL = {
   ok: { dot: "bg-success", text: "text-success", pill: "bg-success-soft" },
-  low: { dot: "bg-warning", text: "text-[#8a5a00]", pill: "bg-warning-soft" },
+  low: { dot: "bg-warning", text: "text-warning", pill: "bg-warning-soft" },
   full: { dot: "bg-error", text: "text-error", pill: "bg-error-soft" },
 };
 
@@ -100,7 +100,7 @@ export function HostelCard({ hostel, className }) {
               {formatDistance(km)} {t("card.away")}
             </span>
             <span className="inline-flex items-center gap-1 text-ink">
-              <Star className="h-4 w-4 fill-accent text-accent" aria-hidden="true" />
+              <Star className="h-4 w-4 fill-primary text-primary" aria-hidden="true" />
               <span className="font-semibold">{hostel.rating.toFixed(1)}</span>
               <span className="text-muted">({hostel.reviewCount})</span>
             </span>

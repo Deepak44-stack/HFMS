@@ -9,7 +9,7 @@ export default {
     extend: {
       colors: {
         primary: { DEFAULT: "rgb(var(--primary) / <alpha-value>)", foreground: "rgb(var(--primary-foreground) / <alpha-value>)", dark: "rgb(var(--primary-dark) / <alpha-value>)", soft: "rgb(var(--primary-soft) / <alpha-value>)" },
-        accent: { DEFAULT: "rgb(var(--accent) / <alpha-value>)", foreground: "rgb(var(--accent-foreground) / <alpha-value>)", soft: "rgb(var(--accent-soft) / <alpha-value>)" },
+        accent: { DEFAULT: "rgb(var(--accent) / <alpha-value>)", hover: "rgb(var(--accent-hover) / <alpha-value>)", foreground: "rgb(var(--accent-foreground) / <alpha-value>)", soft: "rgb(var(--accent-soft) / <alpha-value>)" },
         background: "rgb(var(--background) / <alpha-value>)",
         surface: "rgb(var(--surface) / <alpha-value>)",
         ink: "rgb(var(--ink) / <alpha-value>)",
@@ -26,8 +26,8 @@ export default {
         nepali: ['"Noto Sans Devanagari"', "sans-serif"],
       },
       boxShadow: {
-        soft: "0 1px 2px rgba(18,46,43,.04), 0 5px 18px rgba(18,46,43,.05)",
-        lift: "0 2px 5px rgba(18,46,43,.06), 0 14px 30px rgba(18,46,43,.10)",
+        soft: "0 1px 2px rgb(var(--primary-dark) / .04), 0 5px 18px rgb(var(--primary-dark) / .05)",
+        lift: "0 2px 5px rgb(var(--primary-dark) / .06), 0 14px 30px rgb(var(--primary-dark) / .10)",
       },
       transitionDuration: { 150: "150ms", 200: "200ms" },
       keyframes: {

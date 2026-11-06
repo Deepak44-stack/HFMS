@@ -1,4 +1,4 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import { Search, Heart, GitCompareArrows, LogIn, LayoutDashboard, LogOut } from "lucide-react";
 import { Logo } from "@/components/Logo";
 import { Button } from "@/components/ui/button";
@@ -40,9 +40,11 @@ function LanguageToggle() {
 
 export function Navbar() {
   const { t, favorites, account, signOut } = useApp();
+  const { pathname } = useLocation();
+  const isAuth = pathname === "/login" || pathname === "/register";
   return (
-    <header className="sticky top-0 z-50 border-b border-line bg-surface/95 backdrop-blur supports-[backdrop-filter]:bg-surface/85">
-      <div className="mx-auto flex h-16 max-w-7xl items-center gap-3 px-4 sm:px-6 lg:px-8">
+    <header className="sticky top-0 z-50 border-b border-line bg-surface">
+      <div className="page-container flex h-[72px] items-center gap-3">
         <Logo />
 
         <nav aria-label={t("nav.menu")} className="ml-2 hidden items-center gap-1 md:flex lg:ml-4">
@@ -65,7 +67,7 @@ export function Navbar() {
 
         <div className="ml-auto flex items-center gap-2">
           <LanguageToggle />
-          {account ? <Button variant="outline" size="sm" className="hidden h-10 sm:inline-flex" onClick={signOut}><LogOut className="h-4 w-4" /> Log out</Button> : <Button asChild size="sm" className="hidden h-10 sm:inline-flex"><Link to="/login"><LogIn className="h-4 w-4" aria-hidden="true" /> {t("nav.login")}</Link></Button>}
+          {account ? <Button variant="outline" size="sm" className="hidden h-10 sm:inline-flex" onClick={signOut}><LogOut className="h-4 w-4" /> Log out</Button> : !isAuth && <Button asChild size="sm" className="hidden h-10 sm:inline-flex"><Link to="/login"><LogIn className="h-4 w-4" aria-hidden="true" /> {t("nav.login")}</Link></Button>}
         </div>
       </div>
     </header>

@@ -66,7 +66,7 @@ export function HeroSearch({ initialLocation = "" }) {
     <form
       onSubmit={submit}
       aria-label={t("hero.searchBtn")}
-      className="rounded-2xl border border-line bg-surface p-4 shadow-lift sm:p-6"
+      className="rounded-2xl border border-white/80 bg-surface p-4 shadow-lift sm:p-6"
     >
       {/* Row 1 — where */}
       <div className="flex flex-col gap-3 md:flex-row md:items-end">
@@ -82,7 +82,7 @@ export function HeroSearch({ initialLocation = "" }) {
                 if (geo === "set") setGeo("idle");
               }}
               placeholder={t("hero.locationPlaceholder")}
-              className="h-12 pl-10"
+              className="h-12 pl-10 text-base"
               autoComplete="off"
             />
           </div>
@@ -143,7 +143,7 @@ export function HeroSearch({ initialLocation = "" }) {
                   aria-pressed={on}
                   onClick={() => setGender(on ? "" : g.value)}
                   className={cn(
-                    "h-11 rounded-full border px-5 text-sm font-semibold",
+                    "h-11 rounded-full border px-5 text-base font-semibold",
                     on ? "border-primary bg-primary text-primary-foreground" : "border-line bg-surface text-ink hover:border-primary/40 hover:bg-primary-soft"
                   )}
                 >

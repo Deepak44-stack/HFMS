@@ -138,7 +138,7 @@ export default function Auth() {
   return (
     <div className="mx-auto grid min-h-[calc(100vh-4rem)] max-w-7xl lg:grid-cols-2">
       {/* Brand panel — desktop only */}
-      <aside className="pattern-dhaka relative hidden flex-col justify-end p-12 text-white lg:flex">
+      <aside className="pattern-dhaka relative hidden flex-col justify-end bg-primary-dark p-12 text-white lg:flex">
         <ShieldCheck className="mb-5 h-10 w-10 text-accent" aria-hidden="true" />
         <p className="max-w-md font-display text-4xl font-semibold leading-tight">{t("hero.title")}</p>
         <p className="mt-4 max-w-md text-white/85">{t("footer.trust")}.</p>
@@ -255,7 +255,7 @@ export default function Auth() {
               <form onSubmit={submitOtp} noValidate className="mt-6 space-y-4">
                 <OtpInput value={otp} onChange={(v) => { setOtp(v); if (errors.otp) setErrors({}); }} invalid={!!errors.otp} />
                 {errors.otp && <p role="alert" className="text-sm font-medium text-error">{errors.otp}</p>}
-                <p className="rounded-lg bg-accent-soft px-3 py-2 text-sm text-[#6b4300]">{t("auth.otpHint")}</p>
+                <p className="rounded-lg bg-primary-soft px-3 py-2 text-sm text-primary">{t("auth.otpHint")}</p>
                 <Button type="submit" size="lg" className="w-full" disabled={busy}>
                   {busy && <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />}
                   {t("auth.verify")}

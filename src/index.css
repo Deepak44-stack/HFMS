@@ -3,26 +3,42 @@
 @tailwind utilities;
 
 :root {
-  /* A restrained, tactile palette: evergreen for trust, brass for decisions, and warm paper for space. */
-  --primary: 20 78 75;
-  --primary-dark: 12 54 52;
-  --primary-soft: 226 237 232;
+  /* Design tokens */
+  --primary: 30 64 175;
+  --primary-dark: 23 37 84;
+  --primary-soft: 219 234 254;
   --primary-foreground: 255 255 255;
-  --accent: 207 151 57;
-  --accent-soft: 248 237 217;
-  --accent-foreground: 38 37 29;
-  --background: 248 246 240;
+  --accent: 249 115 22;
+  --accent-hover: 234 88 12;
+  --accent-soft: 255 237 213;
+  --accent-foreground: 15 23 42;
+  --background: 248 250 252;
   --surface: 255 255 255;
-  --ink: 30 48 46;
-  --muted: 87 101 96;
-  --line: 225 224 215;
-  --success: 42 115 81;
-  --success-soft: 228 241 232;
-  --warning: 177 111 20;
-  --warning-soft: 249 239 213;
-  --error: 178 65 51;
-  --error-soft: 248 231 227;
-  --radius: 10px;
+  --ink: 15 23 42;
+  --muted: 100 116 139;
+  --line: 226 232 240;
+  --success: 22 163 74;
+  --success-soft: 220 252 231;
+  --warning: 180 83 9;
+  --warning-soft: 254 243 199;
+  --error: 220 38 38;
+  --error-soft: 254 226 226;
+  --container-width: 1200px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --shadow-card: 0 1px 2px rgb(var(--primary-dark) / .05), 0 8px 24px rgb(var(--primary-dark) / .07);
+  --shadow-lift: 0 4px 10px rgb(var(--primary-dark) / .08), 0 18px 36px rgb(var(--primary-dark) / .12);
 }
 
 @layer base {
@@ -31,6 +47,8 @@
   body {
     @apply bg-background text-ink font-sans antialiased;
     font-feature-settings: "ss01";
+    font-size: 16px;
+    line-height: 1.5;
   }
   h1, h2, h3 { @apply font-display; letter-spacing: -0.01em; }
   html[lang="ne"] body, html[lang="ne"] h1, html[lang="ne"] h2, html[lang="ne"] h3 {
@@ -49,9 +67,26 @@
 }
 
 @layer components {
+  .page-container {
+    width: 100%;
+    max-width: var(--container-width);
+    margin-inline: auto;
+    padding-inline: var(--space-4);
+  }
+  @media (min-width: 640px) {
+    .page-container { padding-inline: var(--space-6); }
+  }
+  @media (min-width: 1024px) {
+    .page-container { padding-inline: var(--space-8); }
+  }
   .hero-surface {
-    background: rgb(var(--primary-dark));
-    background-image: radial-gradient(circle at 82% 18%, rgba(207, 151, 57, .16), transparent 23rem);
+    background-color: rgb(var(--primary-dark));
+    background-image:
+      linear-gradient(135deg, rgba(255,255,255,.035) 25%, transparent 25%),
+      linear-gradient(225deg, rgba(255,255,255,.035) 25%, transparent 25%),
+      radial-gradient(circle at 88% 10%, rgb(var(--primary) / .26), transparent 25rem);
+    background-size: 32px 32px, 32px 32px, auto;
+    background-position: 0 0, 16px 16px, center;
   }
   .eyebrow {
     @apply inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[.14em];
@@ -64,8 +99,8 @@
   .pattern-dhaka {
     background-color: rgb(var(--primary));
     background-image:
-      linear-gradient(135deg, rgba(242,163,58,.16) 25%, transparent 25%),
-      linear-gradient(225deg, rgba(242,163,58,.16) 25%, transparent 25%),
+      linear-gradient(135deg, rgb(var(--primary-soft) / .19) 25%, transparent 25%),
+      linear-gradient(225deg, rgb(var(--primary-soft) / .19) 25%, transparent 25%),
       linear-gradient(45deg, rgba(255,255,255,.06) 25%, transparent 25%),
       linear-gradient(315deg, rgba(255,255,255,.06) 25%, transparent 25%);
     background-size: 44px 44px;
