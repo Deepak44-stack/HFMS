@@ -80,11 +80,11 @@
     .page-container { padding-inline: var(--space-8); }
   }
   .hero-surface {
-    background-color: rgb(var(--primary-dark));
+    background-color: rgb(var(--surface));
     background-image:
-      linear-gradient(135deg, rgba(255,255,255,.035) 25%, transparent 25%),
-      linear-gradient(225deg, rgba(255,255,255,.035) 25%, transparent 25%),
-      radial-gradient(circle at 88% 10%, rgb(var(--primary) / .26), transparent 25rem);
+      linear-gradient(135deg, rgb(var(--primary-soft) / .38) 25%, transparent 25%),
+      linear-gradient(225deg, rgb(var(--primary-soft) / .22) 25%, transparent 25%),
+      radial-gradient(circle at 88% 10%, rgb(var(--primary-soft) / .75), transparent 25rem);
     background-size: 32px 32px, 32px 32px, auto;
     background-position: 0 0, 16px 16px, center;
   }
