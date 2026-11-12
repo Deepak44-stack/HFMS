@@ -51,7 +51,7 @@ export default function AdminLogin() {
         <div className="admin-brand-mark"><ShieldCheck size={24} /></div>
         <p className="admin-kicker">HFMS PLATFORM STAFF</p>
         <h1>Admin sign in</h1>
-        <p className="admin-muted">Manage hostel verification, complaints and marketplace quality.</p>
+        <p className="admin-muted">HFMS Admin: review listings, handle complaints, keep the platform trustworthy.</p>
         {step === "credentials" ? (
           <form onSubmit={submitCredentials} className="admin-form">
             <div><Label htmlFor="admin-identifier">Email or phone</Label><Input id="admin-identifier" value={identifier} onChange={(e) => setIdentifier(e.target.value)} autoComplete="username" /></div>

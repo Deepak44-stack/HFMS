@@ -14,8 +14,6 @@ import Dashboard from "@/pages/Dashboard";
 import Profile from "@/pages/Profile";
 import Inquiries from "@/pages/Inquiries";
 import ListingWizard from "@/pages/ListingWizard";
-import AdminPanel from "@/pages/AdminPanel";
-import AdminAnalytics from "@/pages/AdminAnalytics";
 import AdminLogin from "@/pages/AdminLogin";
 import AdminPortal from "@/pages/AdminPortal";
 import "./index.css";
@@ -36,16 +34,14 @@ const router = createBrowserRouter([
       { path: "/profile", element: <Profile /> },
       { path: "/inquiries", element: <Inquiries /> },
       { path: "/listings/new", element: <ListingWizard /> },
-      { path: "/admin/verification", element: <AdminPanel /> },
-      { path: "/admin/analytics", element: <AdminAnalytics /> },
-      { path: "/admin/login", element: <AdminLogin /> },
-      { path: "/admin", element: <AdminPortal /> },
       { path: "/about", element: <ComingSoon /> },
       { path: "/faq", element: <ComingSoon /> },
       { path: "/contact", element: <ComingSoon /> },
       { path: "*", element: <ComingSoon /> },
     ],
   },
+  { path: "/admin/login", element: <AdminLogin /> },
+  { path: "/admin/*", element: <AdminPortal /> },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(

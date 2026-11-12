@@ -40,6 +40,7 @@ export function AppProvider({ children }) {
   ]));
   const [profile, setProfile] = useState(() => read("hfms.profile", null));
   const [approvedListings, setApprovedListings] = useState(() => read("hfms.approvedListings", []));
+  const [adminPublishedListings, setAdminPublishedListings] = useState(() => read("hfms.adminPublishedListings", []));
   const [bedAdjustments, setBedAdjustments] = useState(() => read("hfms.bedAdjustments", {}));
   const [complaints, setComplaints] = useState(() => read("hfms.complaints", demoComplaints));
   const [verification, setVerification] = useState(() => read("hfms.verification", { [pendingDemoHostel.id]: "Pending Verification" }));
@@ -57,6 +58,7 @@ export function AppProvider({ children }) {
   useEffect(() => write("hfms.notifications", notifications), [notifications]);
   useEffect(() => write("hfms.profile", profile), [profile]);
   useEffect(() => write("hfms.approvedListings", approvedListings), [approvedListings]);
+  useEffect(() => write("hfms.adminPublishedListings", adminPublishedListings), [adminPublishedListings]);
   useEffect(() => write("hfms.bedAdjustments", bedAdjustments), [bedAdjustments]);
   useEffect(() => write("hfms.complaints", complaints), [complaints]);
   useEffect(() => write("hfms.verification", verification), [verification]);
@@ -94,7 +96,10 @@ export function AppProvider({ children }) {
     }
     setNotifications((items) => [{ id: `note-${Date.now()}`, text: `Inquiry ${status.toLowerCase()}.`, read: false, createdAt: new Date().toISOString().slice(0, 10) }, ...items]);
   }, [inquiries]);
-  const catalog = useMemo(() => [...hostels, ...approvedListings], [approvedListings]);
+  const publishAdminListing = useCallback((listing) => {
+    setAdminPublishedListings((items) => items.some((item) => item.id === listing.id) ? items : [...items, { ...listing, verified: true }]);
+  }, []);
+  const catalog = useMemo(() => [...hostels, ...approvedListings, ...adminPublishedListings], [adminPublishedListings, approvedListings]);
   const approveListing = useCallback((id, status, reason = "") => {
     setVerification((current) => ({ ...current, [id]: status }));
     if (status === "Approved" && !approvedListings.some((item) => item.id === id)) setApprovedListings((items) => [...items, pendingDemoHostel]);
@@ -108,8 +113,8 @@ export function AppProvider({ children }) {
   }, []);
 
   const value = useMemo(
-    () => ({ lang, setLang, favorites, toggleFavorite, compare, toggleCompare, account, signIn, signOut, origin, setOrigin, t, searchHistory, saveSearch, inquiries, createInquiry, respondToInquiry, notifications, markNotificationsRead, profile, updateProfile, catalog, bedAdjustments, complaints, updateComplaint, verification, approveListing }),
-    [lang, favorites, compare, account, signIn, signOut, origin, t, toggleFavorite, toggleCompare, searchHistory, saveSearch, inquiries, createInquiry, respondToInquiry, notifications, markNotificationsRead, profile, updateProfile, catalog, bedAdjustments, complaints, updateComplaint, verification, approveListing]
+    () => ({ lang, setLang, favorites, toggleFavorite, compare, toggleCompare, account, signIn, signOut, origin, setOrigin, t, searchHistory, saveSearch, inquiries, createInquiry, respondToInquiry, notifications, markNotificationsRead, profile, updateProfile, catalog, bedAdjustments, complaints, updateComplaint, verification, approveListing, publishAdminListing }),
+    [lang, favorites, compare, account, signIn, signOut, origin, t, toggleFavorite, toggleCompare, searchHistory, saveSearch, inquiries, createInquiry, respondToInquiry, notifications, markNotificationsRead, profile, updateProfile, catalog, bedAdjustments, complaints, updateComplaint, verification, approveListing, publishAdminListing]
   );
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 }
