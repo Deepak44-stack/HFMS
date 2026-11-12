@@ -1,4 +1,5 @@
-// Mock data only — no backend. Photos are Unsplash URLs (cards fall back gracefully if one fails to load).
+// Mock data only — no backend. DEMO IMAGE - replace with real photo.
+// All demo photo paths live here so replacing a path updates every surface.
 const u = (id) => `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=900&q=70`;
 
 const PHOTO_POOL = [
@@ -16,6 +17,9 @@ const PHOTO_POOL = [
   "1512918728675-ed5a9ecdebfd",
 ];
 const photosFor = (i) => [0, 1, 2].map((k) => u(PHOTO_POOL[(i * 2 + k * 5) % PHOTO_POOL.length]));
+const DEMO_PHOTOS = Object.fromEntries(
+  Array.from({ length: 12 }, (_, i) => [`h${i + 1}`, photosFor(i)])
+);
 
 const room = (seater, pricePerMonth, totalBeds, occupiedBeds) => ({
   type: seater,
@@ -165,6 +169,6 @@ export const hostels = [
     foodMenu: menuStandard, owner: { name: "Hari Bhandari", phone: "+977 9841-345601" },
     about: "A favourite with IOE and Patan Campus students. 24-hour power backup and a seminar room.",
   },
-].map((h, i) => ({ ...h, photos: photosFor(i) }));
+].map((h) => ({ ...h, photos: DEMO_PHOTOS[h.id] }));
 
 export const getHostel = (id) => hostels.find((h) => h.id === id);

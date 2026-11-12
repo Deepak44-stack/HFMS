@@ -4,19 +4,19 @@
 
 :root {
   /* Design tokens */
-  --primary: 30 64 175;
-  --primary-dark: 23 37 84;
-  --primary-soft: 219 234 254;
+  --primary: 24 48 67;
+  --primary-dark: 16 32 46;
+  --primary-soft: 232 237 240;
   --primary-foreground: 255 255 255;
-  --accent: 249 115 22;
-  --accent-hover: 234 88 12;
-  --accent-soft: 255 237 213;
-  --accent-foreground: 15 23 42;
-  --background: 248 250 252;
-  --surface: 255 255 255;
-  --ink: 15 23 42;
-  --muted: 100 116 139;
-  --line: 226 232 240;
+  --accent: 207 105 64;
+  --accent-hover: 177 78 46;
+  --accent-soft: 250 235 226;
+  --accent-foreground: 255 255 255;
+  --background: 247 245 240;
+  --surface: 255 254 250;
+  --ink: 28 40 41;
+  --muted: 96 111 110;
+  --line: 218 224 220;
   --success: 22 163 74;
   --success-soft: 220 252 231;
   --warning: 180 83 9;
@@ -33,12 +33,12 @@
   --space-8: 32px;
   --space-10: 40px;
   --space-12: 48px;
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 16px;
-  --radius-xl: 24px;
-  --shadow-card: 0 1px 2px rgb(var(--primary-dark) / .05), 0 8px 24px rgb(var(--primary-dark) / .07);
-  --shadow-lift: 0 4px 10px rgb(var(--primary-dark) / .08), 0 18px 36px rgb(var(--primary-dark) / .12);
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 18px;
+  --shadow-card: none;
+  --shadow-lift: none;
 }
 
 @layer base {
@@ -80,13 +80,8 @@
     .page-container { padding-inline: var(--space-8); }
   }
   .hero-surface {
-    background-color: rgb(var(--surface));
-    background-image:
-      linear-gradient(135deg, rgb(var(--primary-soft) / .38) 25%, transparent 25%),
-      linear-gradient(225deg, rgb(var(--primary-soft) / .22) 25%, transparent 25%),
-      radial-gradient(circle at 88% 10%, rgb(var(--primary-soft) / .75), transparent 25rem);
-    background-size: 32px 32px, 32px 32px, auto;
-    background-position: 0 0, 16px 16px, center;
+    background-color: rgb(var(--primary-soft));
+    background-image: linear-gradient(90deg, rgb(var(--primary-soft)) 0%, rgb(var(--primary-soft) / .74) 55%, rgb(var(--accent-soft) / .55) 100%);
   }
   .eyebrow {
     @apply inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[.14em];
@@ -97,14 +92,8 @@
   }
   /* Woven "dhaka"-inspired lattice used for the hero — a nod to Nepali textile, not a gradient wash */
   .pattern-dhaka {
-    background-color: rgb(var(--primary));
-    background-image:
-      linear-gradient(135deg, rgb(var(--primary-soft) / .19) 25%, transparent 25%),
-      linear-gradient(225deg, rgb(var(--primary-soft) / .19) 25%, transparent 25%),
-      linear-gradient(45deg, rgba(255,255,255,.06) 25%, transparent 25%),
-      linear-gradient(315deg, rgba(255,255,255,.06) 25%, transparent 25%);
-    background-size: 44px 44px;
-    background-position: 22px 0, 22px 0, 0 0, 0 0;
+    background-color: rgb(var(--primary-dark));
+    background-image: repeating-linear-gradient(135deg, transparent 0 18px, rgb(255 255 255 / .06) 18px 19px);
   }
   .skeleton { @apply relative overflow-hidden bg-primary-soft/70 rounded-lg; }
   .skeleton::after {

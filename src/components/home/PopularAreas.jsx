@@ -1,43 +1,29 @@
 import { Link } from "react-router-dom";
-import { ArrowUpRight } from "lucide-react";
 import { areas } from "@/data/areas";
 import { hostels } from "@/data/hostels";
 import { useApp } from "@/context/AppContext";
-import { cn } from "@/lib/utils";
-
-const TONES = ["bg-primary-soft", "bg-accent-soft", "bg-surface"];
 
 export function PopularAreas() {
   const { t, lang, setOrigin } = useApp();
   return (
     <section aria-labelledby="areas-title" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <p className="eyebrow text-primary">Explore by area</p>
-      <h2 id="areas-title" className="mt-3 font-display text-2xl font-semibold sm:text-3xl">{t("areas.title")}</h2>
+      <h2 id="areas-title" className="font-display text-3xl font-semibold sm:text-4xl">{t("areas.title")}</h2>
       <p className="mt-1.5 text-muted">{t("areas.subtitle")}</p>
 
-      <ul className="mt-6 grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-4">
+      <ul className="mt-8 grid gap-x-10 gap-y-0 border-y border-line md:grid-cols-[1.25fr_1fr_1fr]">
         {areas.map((a, i) => {
           const count = hostels.filter((h) => h.area.toLowerCase() === a.id).length;
           return (
-            <li key={a.id}>
+            <li key={a.id} className={i < 2 ? "md:row-span-2" : ""}>
               <Link
                 to={`/search?area=${a.id}`}
                 onClick={() => setOrigin({ lat: a.lat, lng: a.lng, label: a.name })}
-                className={cn(
-                  "group relative flex h-full min-h-32 flex-col justify-between overflow-hidden rounded-xl border border-line p-4 shadow-soft hover:-translate-y-0.5 hover:border-primary/50 hover:shadow-lift md:min-h-36 md:p-5",
-                  TONES[i % 3]
-                )}
+                className="group flex items-center justify-between border-b border-line py-5 hover:text-primary md:gap-5"
               >
-                <ArrowUpRight className="absolute right-3 top-3 h-5 w-5 text-primary/50 group-hover:text-primary" aria-hidden="true" />
-                <span className="pr-6 font-display text-lg font-semibold leading-tight text-ink md:text-xl">
+                <span className={i < 2 ? "font-display text-2xl font-semibold md:text-3xl" : "font-semibold"}>
                   {lang === "ne" ? a.nameNe : a.name}
                 </span>
-                <span>
-                  <span className="block text-sm text-ink/75">{a.hint}</span>
-                  <span className="mt-1 block text-sm font-semibold text-primary">
-                    {count} {count === 1 ? t("areas.one") : t("areas.count")}
-                  </span>
-                </span>
+                <span className="text-sm text-muted">{count} {count === 1 ? t("areas.one") : t("areas.count")}</span>
               </Link>
             </li>
           );

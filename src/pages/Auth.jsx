@@ -6,6 +6,7 @@ import { Input, Label } from "@/components/ui/input";
 import { OtpInput } from "@/components/auth/OtpInput";
 import { useApp } from "@/context/AppContext";
 import { cn } from "@/lib/utils";
+import { DEMO_ACCOUNTS } from "@/data/demo";
 
 const isIdentifier = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()) || /^\d{10}$/.test(v.trim());
 
@@ -70,6 +71,17 @@ export default function Auth() {
   const [busy, setBusy] = useState(false);
   const [cooldown, setCooldown] = useState(0);
   const [accountRole, setAccountRole] = useState("customer");
+  const demoLogin = (email) => {
+    const demo = DEMO_ACCOUNTS[email];
+    setIdentifier(email);
+    setPassword("demo1234");
+    setName(demo.name);
+    setAccountRole(demo.role);
+    setErrors({});
+    setStep("otp");
+    setCooldown(30);
+    setOtp("");
+  };
 
   // Switching between Log in / Create account resets the flow.
   useEffect(() => {
@@ -94,6 +106,11 @@ export default function Auth() {
 
   const submitForm = (e) => {
     e.preventDefault();
+    const lockUntil = Number(localStorage.getItem("hfms.lockUntil") || 0);
+    if (mode === "login" && lockUntil > Date.now()) {
+      const minutes = Math.ceil((lockUntil - Date.now()) / 60000);
+      return setErrors({ identifier: `Account locked after 5 failed attempts. Try again in ${minutes} minutes.` });
+    }
     const errs = {};
     if (mode === "register" && name.trim().length < 2) errs.name = t("auth.errName");
     if (!isIdentifier(identifier)) errs.identifier = t("auth.errIdentifier");
@@ -112,6 +129,13 @@ export default function Auth() {
   const submitOtp = (e) => {
     e.preventDefault();
     if (otp.length < 6) return setErrors({ otp: t("auth.errOtp") });
+    if (mode === "login" && flow === "auth" && otp !== "123456") {
+      const attempts = Number(localStorage.getItem("hfms.failedLogins") || 0) + 1;
+      localStorage.setItem("hfms.failedLogins", String(attempts));
+      if (attempts >= 5) localStorage.setItem("hfms.lockUntil", String(Date.now() + 15 * 60 * 1000));
+      return setErrors({ otp: `Incorrect demo code. ${Math.max(0, 5 - attempts)} attempts remaining. Use 123456 for this demo.` });
+    }
+    if (mode === "login" && flow === "auth") localStorage.removeItem("hfms.failedLogins");
     setErrors({});
     if (flow !== "forgot") signIn({ name: name || identifier.split("@")[0] || "HFMS member", identifier, role: accountRole });
     fake(flow === "forgot" ? "reset" : "done");
@@ -222,6 +246,7 @@ export default function Auth() {
                   {mode === "login" ? t("auth.login") : t("auth.register")}
                 </Button>
               </form>
+              {mode === "login" && <div className="mt-6 rounded-xl border border-accent/40 bg-accent-soft p-4"><p className="font-semibold">Demo login</p><p className="mt-1 text-xs text-muted">Password: demo1234 · OTP: 123456</p><div className="mt-3 grid gap-2 sm:grid-cols-3">{Object.keys(DEMO_ACCOUNTS).map((email) => <Button key={email} type="button" size="sm" variant="outline" onClick={() => demoLogin(email)}>{DEMO_ACCOUNTS[email].role}</Button>)}</div></div>}
               <p className="mt-6 text-center text-sm text-muted">
                 {mode === "login" ? t("auth.noAccount") : t("auth.hasAccount")}{" "}
                 <Link to={mode === "login" ? "/register" : "/login"} className="font-semibold text-primary underline-offset-4 hover:underline">

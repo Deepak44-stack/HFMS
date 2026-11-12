@@ -19,15 +19,15 @@ export default {
         warning: { DEFAULT: "rgb(var(--warning) / <alpha-value>)", soft: "rgb(var(--warning-soft) / <alpha-value>)" },
         error: { DEFAULT: "rgb(var(--error) / <alpha-value>)", soft: "rgb(var(--error-soft) / <alpha-value>)" },
       },
-      borderRadius: { DEFAULT: "10px", lg: "12px", md: "9px", sm: "7px", xl: "16px", "2xl": "18px" },
+      borderRadius: { DEFAULT: "8px", lg: "8px", md: "7px", sm: "6px", xl: "8px", "2xl": "8px" },
       fontFamily: {
         sans: ['"Plus Jakarta Sans"', '"Noto Sans Devanagari"', "system-ui", "sans-serif"],
-        display: ["Fraunces", '"Noto Sans Devanagari"', "Georgia", "serif"],
+        display: ['"Plus Jakarta Sans"', '"Noto Sans Devanagari"', "system-ui", "sans-serif"],
         nepali: ['"Noto Sans Devanagari"', "sans-serif"],
       },
       boxShadow: {
-        soft: "0 1px 2px rgb(var(--primary-dark) / .04), 0 5px 18px rgb(var(--primary-dark) / .05)",
-        lift: "0 2px 5px rgb(var(--primary-dark) / .06), 0 14px 30px rgb(var(--primary-dark) / .10)",
+        soft: "none",
+        lift: "none",
       },
       transitionDuration: { 150: "150ms", 200: "200ms" },
       keyframes: {

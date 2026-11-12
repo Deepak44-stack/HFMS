@@ -11,6 +11,11 @@ import SearchResults from "@/pages/SearchResults";
 import HostelDetails from "@/pages/HostelDetails";
 import Compare from "@/pages/Compare";
 import Dashboard from "@/pages/Dashboard";
+import Profile from "@/pages/Profile";
+import Inquiries from "@/pages/Inquiries";
+import ListingWizard from "@/pages/ListingWizard";
+import AdminPanel from "@/pages/AdminPanel";
+import AdminAnalytics from "@/pages/AdminAnalytics";
 import "./index.css";
 
 const router = createBrowserRouter([
@@ -26,6 +31,11 @@ const router = createBrowserRouter([
       { path: "/compare", element: <Compare /> },
       { path: "/hostel/:id", element: <HostelDetails /> },
       { path: "/dashboard", element: <Dashboard /> },
+      { path: "/profile", element: <Profile /> },
+      { path: "/inquiries", element: <Inquiries /> },
+      { path: "/listings/new", element: <ListingWizard /> },
+      { path: "/admin/verification", element: <AdminPanel /> },
+      { path: "/admin/analytics", element: <AdminAnalytics /> },
       { path: "/about", element: <ComingSoon /> },
       { path: "/faq", element: <ComingSoon /> },
       { path: "/contact", element: <ComingSoon /> },

@@ -20,7 +20,7 @@ export const translations = {
     },
     trust: {
       eyebrow: "What you can check",
-      title: "Useful details before you visit",
+      title: "Know what you are choosing",
       coverage: "Currently covering {areas} Kathmandu Valley areas",
       listings: "Verified listings",
       reviewsCount: "Student reviews",
@@ -61,7 +61,7 @@ export const translations = {
       forgotSub: "Enter your email or phone and we'll send a one-time code.",
       back: "Back to log in",
       newPassword: "New password", setPassword: "Set new password",
-      doneTitle: "You're all set", doneSub: "This is a demo, so no account was created. Explore hostels next.",
+      doneTitle: "You're all set", doneSub: "Demo account ready. Explore the hostels next.",
       doneReset: "Your password was reset (demo). You can log in now.",
       browse: "Browse hostels",
       errIdentifier: "Enter a valid email or a 10-digit phone number.",

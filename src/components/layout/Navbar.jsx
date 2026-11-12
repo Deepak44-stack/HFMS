@@ -1,5 +1,5 @@
-import { Link, NavLink, useLocation } from "react-router-dom";
-import { Search, Heart, GitCompareArrows, LogIn, LayoutDashboard, LogOut } from "lucide-react";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
+import { Search, Heart, GitCompareArrows, LogIn, LayoutDashboard, LogOut, Bell, User } from "lucide-react";
 import { Logo } from "@/components/Logo";
 import { Button } from "@/components/ui/button";
 import { useApp } from "@/context/AppContext";
@@ -7,8 +7,8 @@ import { cn } from "@/lib/utils";
 
 const linkClass = ({ isActive }) =>
   cn(
-    "relative inline-flex h-10 items-center gap-2 rounded-lg px-3 text-sm font-semibold hover:bg-primary-soft",
-    isActive ? "text-primary after:absolute after:inset-x-3 after:-bottom-[13px] after:h-[3px] after:rounded-full after:bg-accent" : "text-ink"
+    "relative inline-flex h-10 items-center gap-2 border-b-2 border-transparent px-3 text-sm font-semibold hover:text-primary",
+    isActive ? "border-accent text-primary" : "text-ink"
   );
 
 function LanguageToggle() {
@@ -39,12 +39,13 @@ function LanguageToggle() {
 }
 
 export function Navbar() {
-  const { t, favorites, account, signOut } = useApp();
+  const { t, favorites, account, signOut, notifications } = useApp();
   const { pathname } = useLocation();
+  const navigate = useNavigate();
   const isAuth = pathname === "/login" || pathname === "/register";
   return (
-    <header className="sticky top-0 z-50 border-b border-line bg-surface">
-      <div className="page-container flex h-[72px] items-center gap-3">
+    <header className="sticky top-0 z-50 border-b border-line bg-surface/95 backdrop-blur">
+      <div className="page-container flex h-[76px] items-center gap-3">
         <Logo />
 
         <nav aria-label={t("nav.menu")} className="ml-2 hidden items-center gap-1 md:flex lg:ml-4">
@@ -63,11 +64,12 @@ export function Navbar() {
             <GitCompareArrows className="hidden h-4 w-4 lg:block" aria-hidden="true" /> {t("nav.compare")}
           </NavLink>
           {account && <NavLink to="/dashboard" className={linkClass}><LayoutDashboard className="hidden h-4 w-4 lg:block" aria-hidden="true" /> Dashboard</NavLink>}
+          {account && <NavLink to="/inquiries" className={linkClass}><Bell className="hidden h-4 w-4 lg:block" aria-hidden="true" /> Notifications{notifications.some((n) => !n.read) && <span className="h-2 w-2 rounded-full bg-accent" />}</NavLink>}
         </nav>
 
-        <div className="ml-auto flex items-center gap-2">
+        <div className="ml-auto flex items-center gap-3">
           <LanguageToggle />
-          {account ? <Button variant="outline" size="sm" className="hidden h-10 sm:inline-flex" onClick={signOut}><LogOut className="h-4 w-4" /> Log out</Button> : !isAuth && <Button asChild size="sm" className="hidden h-10 sm:inline-flex"><Link to="/login"><LogIn className="h-4 w-4" aria-hidden="true" /> {t("nav.login")}</Link></Button>}
+          {account ? <><Button asChild variant="ghost" size="sm" className="hidden h-10 sm:inline-flex"><Link to="/profile"><User className="h-4 w-4" /> Profile</Link></Button><Button variant="outline" size="sm" className="hidden h-10 sm:inline-flex" onClick={() => { signOut(); navigate("/login"); }}><LogOut className="h-4 w-4" /> Log out</Button></> : !isAuth && <Button asChild size="sm" className="hidden h-10 sm:inline-flex"><Link to="/login"><LogIn className="h-4 w-4" aria-hidden="true" /> {t("nav.login")}</Link></Button>}
         </div>
       </div>
     </header>

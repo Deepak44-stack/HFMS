@@ -6,7 +6,6 @@ import { hostels } from "@/data/hostels";
 export function TrustStrip() {
   const { t } = useApp();
   const verifiedCount = hostels.filter((hostel) => hostel.verified).length;
-  const reviewCount = hostels.reduce((total, hostel) => total + hostel.reviewCount, 0);
   const points = [
     { icon: ShieldCheck, title: t("trust.verified"), desc: t("trust.verifiedDesc") },
     { icon: BedDouble, title: t("trust.availability"), desc: t("trust.availabilityDesc") },
@@ -16,8 +15,7 @@ export function TrustStrip() {
     <section aria-labelledby="trust-title" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <p className="eyebrow text-primary">{t("trust.eyebrow")}</p>
-          <h2 id="trust-title" className="mt-3 max-w-xl font-display text-2xl font-semibold sm:text-3xl">{t("trust.title")}</h2>
+          <h2 id="trust-title" className="max-w-xl font-display text-2xl font-semibold sm:text-3xl">{t("trust.title")}</h2>
         </div>
         <p className="text-sm text-muted">{t("trust.coverage").replace("{areas}", areas.length)}</p>
       </div>
@@ -27,8 +25,8 @@ export function TrustStrip() {
           <dd className="mt-1 font-display text-2xl font-semibold text-ink">{verifiedCount}</dd>
         </div>
         <div>
-          <dt className="text-xs font-semibold uppercase tracking-[.12em] text-muted">{t("trust.reviewsCount")}</dt>
-          <dd className="mt-1 font-display text-2xl font-semibold text-ink">{reviewCount}+</dd>
+          <dt className="text-xs font-semibold uppercase tracking-[.12em] text-muted">Demo catalogue</dt>
+          <dd className="mt-1 font-display text-2xl font-semibold text-ink">Live</dd>
         </div>
         <div>
           <dt className="text-xs font-semibold uppercase tracking-[.12em] text-muted">{t("trust.areasCount")}</dt>
